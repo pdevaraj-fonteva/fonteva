@@ -1,0 +1,630 @@
+<apex:page Controller="CreateApprisalFormController" sidebar="false" showHeader="false">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+        <head>
+            <!--<script src="Financial_Tools_and_Resources_files/user_timeline.json" async=""></script>-->
+            <apex:includeScript value="{!URLFOR($Resource.NCUA, '/JS/user_timeline.json')}"  />
+            <title>
+                NCUA CAC
+            </title>
+            
+            <style>
+            .loginButtonClass {
+              background-image:url({!URLFOR($Resource.NCUA,'/imagesNew/blue_box.png')});
+              width:100px;
+              height:30px
+            }
+            
+            .textArea{
+                width: 400px;
+                height: 60px;
+            }
+            
+            .requiredBlock{
+                background-color: #c00;
+                  position: absolute;
+                  /* left: -4px; */
+                  width: 3px; 
+                  /* top: 1px; */
+                  height: 19px;
+                  /* bottom: 1px; */
+                  margin-right: 45px;
+            }
+        </style>
+        
+        
+
+
+            <meta http-equiv="CACHE-CONTROL" content="NO-CACHE"/>
+            <meta http-equiv="EXPIRES" content="0"/>
+            <meta http-equiv="PRAGMA" content="NO-CACHE"/>
+            <!--<link rel="stylesheet" type="text/css" href="/mycu/Style%20Library/newmcu/css/pc_template.css" media="screen"/>-->
+            <apex:stylesheet value="{!URLFOR($Resource.NCUA, '/CSS/pc_template.css')}"  />
+            
+            <!--<link rel="stylesheet" type="text/css" href="/mycu/Style%20Library/newmcu/css/pc_content_default.css" media="screen"/>-->
+            <apex:stylesheet value="{!URLFOR($Resource.NCUA, '/CSS/pc_content_default.css')}"  />
+            
+            <!--<link rel="stylesheet" type="text/css" href="/mycu/Style%20Library/newmcu/css/pc_template_minpaddingtop.css" media="screen"/>-->
+            <apex:stylesheet value="{!URLFOR($Resource.NCUA, '/CSS/pc_template_minpaddingtop.css')}"  />
+            
+            <!--<link rel="stylesheet" type="text/css" href="/mycu/Style%20Library/newmcu/css/printer_friendly.css" media="print"/>-->
+            <apex:stylesheet value="{!URLFOR($Resource.NCUA, '/CSS/printer_friendly.css')}"  />
+            
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <!--<script type="text/javascript" src="/mycu/Style%20Library/newmcu/js/jquery.js"></script>-->
+            <apex:includeScript value="{!URLFOR($Resource.NCUA, '/JS/jquery.js')}"  />
+            <apex:includeScript value="{!URLFOR($Resource.StyleLib, '/js/jquery.js')}" />
+            
+            <!--<script type="text/javascript" src="/mycu/Style%20Library/newmcu/js/jquery.simplemodal.1.4.4.min.js"></script>-->
+            <apex:includeScript value="{!URLFOR($Resource.NCUA, '/JS/jquery.simplemodal.1.4.4.min.js')}"  />
+            
+            <!--<script type="text/javascript" src="/mycu/Style%20Library/newmcu/js/pc_template.js"></script>-->
+            <apex:includeScript value="{!URLFOR($Resource.NCUA, '/JS/pc_template.js')}"  />
+            
+            <!--<script type="text/javascript" src="/mycu/Style%20Library/newmcu/js/pc_home.js"></script>-->
+            <apex:includeScript value="{!URLFOR($Resource.NCUA, '/JS/pc_home.js')}"  />
+            
+            <!--<link rel="stylesheet" type="text/css" href="../../Style%20Library/newmcu/css/mycu_cac.css"/>-->
+            <apex:stylesheet value="{!URLFOR($Resource.NCUA, '/CSS/mycu_cac.css')}"  />
+            
+            <script>
+            function isNumberKey(evt){
+               
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode > 31 && (charCode < 48 || charCode > 57))
+                    return false;
+                return true;
+            }
+        </script>
+        
+        
+        </head>
+<body class="home">
+    <a id="mycu_skipToContent" href="#skipToContent">Skip to Content</a>
+
+    <div id="mycu_wrapper">
+        <div class="shadow left"><!--e--></div>
+        <div class="shadow right"><!--e--></div>
+            
+        <div id="mycu_header" style="display:block">
+            <a id="mycu_homeMain" href="http://www.mycreditunion.gov/Pages/default.aspx">MyCreditUnion.gov</a>
+        
+            <div id="mycu_misc" style="width:579px">
+                <h2>Misc Options Navigation</h2>
+                <ul>
+                    <li class="normal help"><a target="_blank" href="http://answer.mycreditunion.gov/Pkb" style="margin-left:-30px">Find an Answer</a></li>
+                    <li class="normal espanol"><a href="http://espanol.mycreditunion.gov/" style="margin-left:-45px">Español</a></li>
+                    <li class="normal culocator"><a href="http://www.mycreditunion.gov/Pages/mcu-map.aspx" style="margin-left:-75px">CU Locator</a></li>
+                    <li class="normal videos"><a style="margin-left:-95px" href="https://www.youtube.com/playlist?list=PL--na5_QagEh3V0FQTi1T71jZThMixuEG&feature=view_all" target="_blank">Videos</a></li>
+                    <li class="normal ncua"><a style="margin-left:-110px" href="http://www.ncua.gov/" target="_blank">NCUA.GOV</a></li>
+                </ul>
+            </div>
+
+            <div id="mycu_topnav">
+                <h2>Main Navigation</h2>
+                <ul class="level1">
+                    <li class="home selected level1" style="margin-left:0px;">
+                        <a class="level1" href="http://www.mycreditunion.gov/Pages/default.aspx" >Home</a>
+                    </li>
+                    <li class="normal learn level1" style="margin-left:0px;">
+                        <a class="level1" href="http://www.mycreditunion.gov/about-credit-unions/Pages/default.aspx" >Learn About Credit Unions</a>
+                        
+                        
+                    </li>
+                    <li class="normal protect level1" style="margin-left:0px">
+                        <a class="level1" href="http://www.mycreditunion.gov/protect/Pages/default.aspx">Protect Your Finances</a>
+                        
+                        
+                    </li>
+                    <li class="normal financial level1" style="margin-left:0px">
+                        <a class="level1" href="http://www.mycreditunion.gov/tools-resources/Pages/default.aspx">Financial Tools and Resources</a>
+                        
+                        
+                        
+                    </li>
+                    <li class="normal credit level1" style="margin-left:0px">
+                        <a class="level1" href="http://www.mycreditunion.gov/consumer-assistance-center/Pages/default.aspx">Consumer Asssistance Center</a>
+                        
+                        
+                    </li>
+                </ul>
+                <li id="mycu_pocketCents">
+                    <a class="level1" href="http://www.mycreditunion.gov/Pages/pocket-cents-home.aspx">
+                        Pocket Cents
+                    </a>
+                    
+                
+                </li>
+            </div>
+
+        </div>
+        <div id="mycu_banner">
+            <a href="/mycu/Pages/pocket-cents-landing-youth.aspx" class="slot slot1">YOUTH</a>
+            <a href="/mycu/Pages/pocket-cents-landing-teen.aspx" class="slot slot2">TEENS AND TWEENS</a>
+            <a href="/mycu/Pages/pocket-cents-landing-young-adults.aspx" class="slot slot3">YOUNG ADULTS</a>
+            <a href="/mycu/Pages/pocket-cents-landing-parents.aspx" class="slot slot4">PARENTS AND EDUCATORS</a>
+            <a href="/mycu/Pages/pocket-cents-landing-seniors.aspx" class="slot slot5">SENIORS</a>
+            <a href="/mycu/Pages/pocket-cents-landing-marriage.aspx" class="slot slot6">MARRIAGE AND FAMILY</a>
+            <a href="/mycu/Pages/pocket-cents-landing-servicemembers.aspx" class="slot slot7">SERVICEMEMBERS</a>
+        </div>
+        <div id="mycu_mid">
+
+ 
+<div id="lk">
+<apex:form >
+    <p>
+    <apex:outputText > <strong>Purpose:</strong> This form collects information about complaints of non-compliance with the appraisal independence standards and the Uniform Standards of Professional Appraisal Practice, including complaints from appraisers, individuals, financial institutions, and other entities. </apex:outputText>
+      <br></br><br></br><apex:outputText > <b>Complaint Process:</b> Your complaint will be reviewed by the appropriate regulator(s). Please do not submit 
+        documents with your complaint, as the regulator(s) will contact you if more information is needed.  Please note the         
+        regulator(s) may not be able to provide the resolution you request because of legal and other constraints.  For 
+        example, regulator(s) considering a complaint do not have jurisdiction to directly award damages, settle fee disputes, 
+        or act as your attorney or expert witness.  A regulator's review of your complaint will focus on potential violations of 
+        applicable law or regulatory policy and could result in a regulator taking action(s) against the entity about which you 
+        are complaining.</apex:outputText>  
+        <br></br><br></br><apex:outputText ><b>Paperwork Reduction Act of 1995:</b> The burden for this collection of information is estimated to take 30 minutes per
+
+response.  This includes time for reviewing the instructions, gathering needed information, and completing and 
+
+reviewing the form. An agency may not conduct or sponsor, and a person is not required to respond to a collection of 
+
+information unless it displays a currently valid OMB control number. If you have comments regarding this burden 
+
+estimate or any other aspect of this collection of information, including suggestions for reducing this burden, send 
+
+comments to: Legislative and Regulatory Activities Division, Office of the Comptroller of the Currency, Washington, 
+
+DC 20219; Comments/Legal ESS, Federal Deposit Insurance Corporation, 550 17th Street NW, Washington, DC 
+
+20429; NCUA PRA, National Credit Union Administration, 1775 Duke Street, Alexandria, Virginia 22314.</apex:outputText>
+
+<br></br><br></br><apex:outputText ><b>Privacy Notice:</b> The information you are providing is being collected pursuant to the individual authorities of the
+
+federal financial institution regulators (12 U.S.C.§§1, 481, 1464, 1756, 1766, and 1820 in connection with a 
+
+complaint made pursuant to 12 U.S.C. § 3351(i). The information provided will be used to ensure the appropriate 
+
+regulator receives your compliant and by the regulator to review and respond to your complaint.  In order to review 
+
+and respond to your complaint, the appropriate regulator may disclose your information consistent with the routine 
+
+uses listed in the regulator's respective Privacy Act statements:  
+
+<br></br><br></br><a href="http://www.helpwithmybank.gov/policies/policies-privacy.html"><font color="blue"> OCC (www.helpwithmybank.gov/policies/policies-privacy.html);</font></a> 
+<br></br><br></br><a href="http://www.fdic.gov/consumers/questions/Priv_statement.html"><font color="blue">FDIC (www.fdic.gov/consumers/questions/Priv_statement.html);</font></a>
+<br></br><br></br><a href="http://www.federalreserve.gov/privacy.htm"><font color="blue">FRB (www.federalreserve.gov/privacy.htm);</font></a>
+<br></br><br></br><a href="http://www.mycreditunion.gov/Pages/privacy.aspx"><font color="blue">NCUA (www.mycreditunion.gov/Pages/privacy.aspx).</font></a> <br></br>
+ 
+<br></br>Do not include any information in your complaint you consider confidential or do not want disclosed during the 
+
+complaint review process. While completing this form is voluntary, failure to provide all of the information may delay 
+
+or prevent the appropriate regulator from reviewing your complaint.</apex:outputText>
+
+<br></br><br></br><apex:outputText ><b>Whistleblowers:</b> Federal and state laws offer protection for whistleblowers.</apex:outputText>
+
+</p>
+    <apex:pageblock >
+        <apex:pagemessages id="errmsg"/>
+        <apex:pageblockButtons >
+            <apex:commandButton value="Submit" action="{!save}" />
+            <apex:commandButton value="Cancel" immediate="true" action="{!Cancel}" />
+        </apex:pageblockButtons>
+        <apex:outputpanel >
+            
+            <div>
+                <table style="width:100%">
+                    <tr>
+                        <td style="padding:8px">
+                            <b>Interagency Appraisal Complaint Form</b>
+                        </td>
+                        <td style="text-align:right">
+                            <b>OMB# 3133-0188</b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <br/>
+            <div>
+                <table style="width:100%">
+                    <tr style="background-color:#E2E7EF">
+                        <td colspan="4" style="padding:8px;font-size:13px">
+                            <b>Your Information</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align:right">
+                             <div><span class="requiredBlock">&nbsp;</span> &nbsp;&nbsp;Required Fields</div>
+                        </td>
+                    </tr>
+                    
+                    <tr style="vertical-align: top;margin-bottom:10px;">
+                        <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                            <apex:outputLabel value="First Name" />
+                        </td>
+                        <!--<td style="text-align:left;padding-left:10px;padding-top:10px;width:25%">
+                            <span class="requiredBlock" >&nbsp;</span><apex:inputText style="margin-left:5px" value="{!c.First_Name__c}"  required="true" id="firstName"/>
+                        </td>
+                        <td style="text-align:right;padding-right:10px;padding-top:10px;width:15%">
+                            <apex:outputLabel value="Last Name" />
+                        </td>
+                        <td style="text-align:left;padding-left:10px;padding-top:10px;width:35%">
+                            <span class="requiredBlock" >&nbsp;</span><apex:inputText style="margin-left:5px" value="{!c.Last_Name__c}"  required="true" id="lastName"/> 
+                        </td>
+                    </tr>
+                    <tr style="vertical-align: top;margin-bottom:10px;">
+                        <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                            <apex:outputLabel value="Email" />
+                        </td>
+                        <td style="text-align:left;padding-left:10px;padding-top:10px;width:25%">
+                            <span class="requiredBlock" >&nbsp;</span><apex:inputText style="margin-left:5px" value="{!c.Email__c}"  required="true" id="email"/>
+                        </td>
+                        <td style="text-align:right;padding-right:10px;padding-top:10px;width:15%">
+                            <apex:outputLabel value="Phone Number" />
+                        </td>
+                        <td style="text-align:left;padding-left:10px;padding-top:10px;width:35%">
+                            <span class="requiredBlock" >&nbsp;</span><apex:inputText onkeypress="return isNumberKey(event)" style="margin-left:5px" value="{!c.Phone_Number__c}" id="phonenumber"  required="true"/> 
+                        </td>
+                    </tr>
+                    <tr style="vertical-align: top;margin-bottom:10px;">
+                        <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                            <apex:outputLabel value="Address" />
+                        </td>
+                        <td style="text-align:left;padding-left:10px;padding-top:10px;width:25%">
+                            <span class="requiredBlock" style="height:52px">&nbsp;</span><apex:inputTextArea style="margin-left:5px;width:250px;height:50px" value="{!c.Address__c}" required="true" id="address"/>
+                        </td>
+                        --->
+                        <td style="text-align:right;padding-right:10px;padding-top:10px;width:15%">
+                            &nbsp;
+                        </td>
+                        <td style="text-align:left;padding-left:10px;padding-top:10px;width:35%">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            
+            
+<div>
+    <table style="width:100%">
+        <tr style="background-color:#E2E7EF">
+            <td colspan="4" style="padding:8px;font-size:13px">
+                <b>Who are you?  Please check the appropriate box.</b>
+            </td>
+        </tr>
+        <!--
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Individual Property Owner" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Individual_Property_Owner__c}" id="InPropOwner"/>
+            </td>
+            
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Business Property Owner" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Business_Property_Owner__c}" id="BusProOwn"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Financial Institution Lender" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Financial_Institution_Lender__c}" id="finInlender"/>
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Non-Financial Institution Lender" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Non_Financial_Institution_Lender__c}" id="nonfinlender"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Mortgage Broker" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px;" value="{!c.Mortgage_Broker__c}" id="marbro"/>
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Appraiser" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px;" value="{!c.Appraiser__c}" id="appraiser"/>
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Appraisal Management Company" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px;" value="{!c.Appraisal_Management_Company__c}" id="Appmanacomp"/>
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Other" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px;" value="{!c.Other_whoareyou_check_appropriate_box__c}" id="otherwhchappbox"/>
+            </td>
+        </tr>
+        -->
+    </table>
+</div>
+
+
+
+<div>
+    <table style="width:100%">
+        <tr style="background-color:#E2E7EF">
+            <td colspan="4" style="padding:8px;font-size:13px">
+                <b>Who are you complaining about?  Check all that apply.</b>
+            </td>
+        </tr>
+        <!--
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Appraiser" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Appraisal_Management_Company_2__c}" id="appmanacomp2"/>
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Appraisal Management Company" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Appraisal_Management_Company__c}" id="appmangcomp"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Lender" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Lender__c}" id="lenderc"/>
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Are you employed by the subject of your complaint?" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px" value="{!c.Are_you_employed_by_the_subject_of_your__c}" id="arebysubjyou"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Other" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px" value="{!c.Other_AF_Sec3__c}" id="otheAF"/> 
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                &nbsp;
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                &nbsp;
+            </td>
+        </tr>
+        --->
+    </table>
+</div>
+
+
+
+
+<div>
+    <table style="width:100%">
+        <tr style="background-color:#E2E7EF">
+            <td colspan="4" style="padding:8px;font-size:13px">
+                <b>Please provide information regarding the person or entity you are complaining about.If more than one, please provide information in the 'Describe your complaint' section, below.</b>
+            </td>
+        </tr>
+        <!--
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Name(First,Last,Business)" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px" value="{!c.Name_First_Last_Business__c}" id="nlb"/>
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Phone" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputtext style="margin-left:0px" onkeypress="return isNumberKey(event)" value="{!c.Phone_AF_Sec4__c}" id="phn"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Address, City, State, Zip Code" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px;width:250px;height:50px" value="{!c.Address_City_State_Zip_Code_AF_Sec4__c}" id="adcitsta"/>
+            </td>           
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                &nbsp;
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                &nbsp;
+            </td>
+        </tr>
+        --->
+    </table>
+</div>
+
+
+
+
+<div>
+    <table style="width:100%">
+        <tr style="background-color:#E2E7EF">
+            <td colspan="4" style="padding:8px;font-size:13px">
+                <b>What is the nature of your complaint?  Check all that apply.</b>
+            </td>
+        </tr>
+        <!--
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Appraiser independence" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Appraiser_independence__c}" id="appindds"/> 
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Appraisal fee-related issue" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Appraisal_fee_related_issue__c}" id="appfeereli"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Non-compliance with Uniform Standards of Professional Appraisal Practice" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Non_compliance_with_Uniform_Standards_of__c}" id="noncomwuni"/> 
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Improper (or attempted improper) influencing of an appraiser or the appraisal process" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Improper_or_attempted_improper_influen__c}" id="impattimpinf"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Removal or exclusion from an approved appraiser list or addition to a 'do not use' list" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Removal_or_exclusion_from_an_approved_ap__c}" id="remexfrapp"/> 
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Appraisal report inaccurate" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputCheckBox style="margin-left:0px" value="{!c.Appraisal_report_inaccurate__c}" id="apprepincrc"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Other" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px;width:250px;height:50px" value="{!c.Other_AF_Sec5__c}" id="othafsec5"/> 
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                &nbsp;
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                &nbsp;
+            </td>
+        </tr>
+        --->
+    </table>
+</div>
+
+
+<div>
+    <table style="width:100%">
+        <tr style="background-color:#E2E7EF">
+            <td colspan="4" style="padding:8px;font-size:13px">
+                <b>Please provide information about your complaint.</b>
+            </td>
+        </tr>
+        <!--
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Type of property" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px" value="{!c.Type_of_Property__c}" id="typeprop"/> 
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Have you tried to resolve your complaint with anyone?" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px" value="{!c.Have_you_tried_to_resolve_your_complaint__c}" id="hytrresucomp"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Address of the Property Involved" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px" value="{!c.Address_of_the_Property_Involved__c}" id="addprpin"/> 
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="If Yes, date of contact" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px;color:black" value="{!c.If_Yes_date_of_contact__c}" id="ifyesdatecon"/> 
+            </td>
+        </tr>
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="At what company or government agency?" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px" value="{!c.At_what_company_or_government_agency__c}" id="atwhtgovagency"/> 
+            </td>
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:25%">
+                <apex:outputLabel value="Who did you contact?" />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:20%">
+                <apex:inputField style="margin-left:0px" value="{!c.Who_did_you_contact__c}" id="whodiducon"/> 
+            </td>
+        </tr>
+        --->
+        
+    </table>
+</div>
+
+
+<div>
+    <table style="width:100%">
+        <tr style="background-color:#E2E7EF">
+            <td colspan="4" style="padding:8px;font-size:13px">
+                <b>Describe your complaint.</b>
+            </td>
+        </tr>
+        <!--
+        <tr style="vertical-align: top;margin-bottom:10px;">
+            
+            <td style="text-align:right;padding-right:10px;padding-top:10px;width:49%">
+                <apex:outputLabel value="Briefly describe your complaint.  Do not submit any documents with your complaint.  You will be contacted if more information is needed." />
+            </td>
+            <td style="text-align:left;padding-left:10px;padding-top:10px;width:49%">
+                <span class="requiredBlock" >&nbsp;</span> <apex:inputField style="margin-left:0px" value="{!c.Briefly_describe_your_complain_Do_not_s__c}" required="true" id="briefdeccpompdns"/>
+                 
+            </td>
+            
+        </tr>
+        --->
+    </table>
+</div>
+</apex:outputPanel>
+</apex:pageblock>
+  </apex:form>
+
+</div>
+    
+            <div class="clearer"><!--e--></div>
+            
+        </div>
+  
+        <div class="clearer"><!--e--></div>
+    </div>
+    <div class="clearer"><!--e--></div>
+    
+ 
+</body>
+    </html>
+</apex:page>
