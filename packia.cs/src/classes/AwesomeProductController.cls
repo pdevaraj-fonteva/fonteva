@@ -2,6 +2,7 @@ public class AwesomeProductController {
     @AuraEnabled
     public static List<Product__c> getProducts() {
     	//Test Message for @ Git
+    	//Test Message for @ Git 1
         return [select id, name, photo__c, description__c, points__c from product__c];
     }
 
