@@ -4,7 +4,7 @@ public class AwesomeProductController {
     	//Test Message for @ Git
     	//Test Message for @ Git 1
     	//Test Message for @ Git 3
-    	//Test Message for @ Git 4k-1222
+    	//Test Message for @ Git 4k-1222_Release 3.0
         return [select id, name, photo__c, description__c, points__c from product__c];
     }
 
